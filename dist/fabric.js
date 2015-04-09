@@ -2943,7 +2943,7 @@ if (typeof console !== 'undefined') {
       }
 
       var color = new fabric.Color(attributes[attr]);
-      attributes[attr] = color.setAlpha(toFixed(color.getAlpha() * attributes[colorAttributes[attr]], 2)).toRgba();
+      attributes[attr] = color.setAlpha(toFixed(color.getAlpha() * attributes[colorAttributes[attr]], 5)).toRgba();
     }
     return attributes;
   }
@@ -5590,15 +5590,15 @@ fabric.Pattern = fabric.util.createClass(/** @lends fabric.Pattern.prototype */ 
       if (object.width && object.height) {
         //http://www.w3.org/TR/SVG/filters.html#FilterEffectsRegion
         // we add some extra space to filter box to contain the blur ( 20 )
-        fBoxX = toFixed(Math.abs(this.offsetX / object.getWidth()), 2) * 100 + 20;
-        fBoxY = toFixed(Math.abs(this.offsetY / object.getHeight()), 2) * 100 + 20;
+        fBoxX = toFixed(Math.abs(this.offsetX / object.getWidth()), 5) * 100 + 20;
+        fBoxY = toFixed(Math.abs(this.offsetY / object.getHeight()), 5) * 100 + 20;
       }
 
       return (
         '<filter id="SVGID_' + this.id + '" y="-' + fBoxY + '%" height="' + (100 + 2 * fBoxY) + '%" ' +
           'x="-' + fBoxX + '%" width="' + (100 + 2 * fBoxX) + '%" ' + '>\n' +
           '\t<feGaussianBlur in="' + mode + '" stdDeviation="' +
-            toFixed(this.blur ? this.blur / 2 : 0, 3) +
+            toFixed(this.blur ? this.blur / 2 : 0, 5) +
           '" result="blurOut"></feGaussianBlur>\n' +
           '\t<feColorMatrix result="matrixOut" in="blurOut" type="matrix" ' +
           'values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.30 0" /></feColorMatrix >\n' +
@@ -11404,7 +11404,7 @@ fabric.util.object.extend(fabric.StaticCanvas.prototype, /** @lends fabric.Stati
         value *= -1;
       }
       else if (key === 'width' || key === 'height') {
-        this.minScaleLimit = toFixed(Math.min(0.1, 1/Math.max(this.width, this.height)), 2);
+        this.minScaleLimit = toFixed(Math.min(0.1, 1/Math.max(this.width, this.height)), 5);
       }
       else if (key === 'shadow' && value && !(value instanceof fabric.Shadow)) {
         value = new fabric.Shadow(value);
@@ -14958,7 +14958,7 @@ fabric.util.object.extend(fabric.Object.prototype, /** @lends fabric.Object.prot
           markup = this._createBaseSVGMarkup();
 
       for (var i = 0, len = this.points.length; i < len; i++) {
-        points.push(toFixed(this.points[i].x, 2), ',', toFixed(this.points[i].y, 2), ' ');
+        points.push(toFixed(this.points[i].x, 5), ',', toFixed(this.points[i].y, 5), ' ');
       }
 
       markup.push(
@@ -20238,7 +20238,7 @@ fabric.Image.filters.BaseFilter = fabric.util.createClass(/** @lends fabric.Imag
         - textTopOffset + height - this.height / 2;
       textSpans.push(
         '<tspan x="',
-          toFixed(textLeftOffset + this._getLineLeftOffset(this.__lineWidths[i]), 4), '" ',
+          toFixed(textLeftOffset + this._getLineLeftOffset(this.__lineWidths[i]), 5), '" ',
           'y="',
           toFixed(yPos, 4),
           '" ',
@@ -20255,13 +20255,13 @@ fabric.Image.filters.BaseFilter = fabric.util.createClass(/** @lends fabric.Imag
         '\t\t<rect ',
           this._getFillAttributes(this.textBackgroundColor),
           ' x="',
-          toFixed(textLeftOffset + this._getLineLeftOffset(this.__lineWidths[i]), 4),
+          toFixed(textLeftOffset + this._getLineLeftOffset(this.__lineWidths[i]), 5),
           '" y="',
           toFixed(height - this.height / 2, 4),
           '" width="',
           toFixed(this.__lineWidths[i], 4),
           '" height="',
-          toFixed(this._getHeightOfLine(this.ctx, i) / this.lineHeight, 4),
+          toFixed(this._getHeightOfLine(this.ctx, i) / this.lineHeight, 5),
         '"></rect>\n');
     },
 
@@ -20271,13 +20271,13 @@ fabric.Image.filters.BaseFilter = fabric.util.createClass(/** @lends fabric.Imag
           '\t\t<rect ',
             this._getFillAttributes(this.backgroundColor),
             ' x="',
-            toFixed(-this.width / 2, 4),
+            toFixed(-this.width / 2, 5),
             '" y="',
-            toFixed(-this.height / 2, 4),
+            toFixed(-this.height / 2, 5),
             '" width="',
-            toFixed(this.width, 4),
+            toFixed(this.width, 5),
             '" height="',
-            toFixed(this.height, 4),
+            toFixed(this.height, 5),
           '"></rect>\n');
       }
     },
@@ -23231,7 +23231,7 @@ fabric.util.object.extend(fabric.IText.prototype, /** @lends fabric.IText.protot
    * @private
    */
   _getSVGLineLeftOffset: function(lineIndex) {
-    return fabric.util.toFixed(this._getLineLeftOffset(this.__lineWidths[lineIndex]), 2);
+    return fabric.util.toFixed(this._getLineLeftOffset(this.__lineWidths[lineIndex]), 5);
   },
 
   /**
